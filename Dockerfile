@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine:3.3
+FROM gliderlabs/alpine:3.6
 MAINTAINER Bruno Celeste <bruno@coconut.co>
 
 ENV FFMPEG_VERSION=4.0.2
@@ -18,7 +18,7 @@ RUN apk add --update \
     libvpx-dev \
     libwebp-dev \
     nasm \
-    openssl-dev \
+    libressl-dev \
     opus-dev \
     rtmpdump-dev \
     tar \
@@ -47,7 +47,7 @@ RUN ./configure \
     --enable-libx264 \
     --enable-libx265 \
     --enable-nonfree \
-    --enable-openssl \
+    --enable-libtls \
     --enable-postproc \
     --enable-small \
     --enable-version3
@@ -62,7 +62,6 @@ RUN apk del \
     bzip2 \
     curl \
     nasm \
-    openssl \
     tar \
     x264
 RUN rm -rf /var/cache/apk/*

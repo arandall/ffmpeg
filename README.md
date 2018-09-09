@@ -21,25 +21,25 @@ ffmpeg version 3.0 Copyright (c) 2000-2016 the FFmpeg developers
   libpostproc    54.  0.100 / 54.  0.100
 
   configuration:
-    --enable-version3
+    --disable-debug
+    --enable-avresample
     --enable-gpl
-    --enable-nonfree
-    --enable-small
+    --enable-libass
+    --enable-libfreetype
     --enable-libmp3lame
-    --enable-libx264
-    --enable-libx265
-    --enable-libvpx
+    --enable-libopus
+    --enable-librtmp
     --enable-libtheora
     --enable-libvorbis
-    --enable-libopus
-    --enable-libass
+    --enable-libvpx
     --enable-libwebp
-    --enable-librtmp
+    --enable-libx264
+    --enable-libx265
+    --enable-nonfree
+    --enable-libtls
     --enable-postproc
-    --enable-avresample
-    --enable-libfreetype
-    --enable-openssl
-    --disable-debug
+    --enable-small
+    --enable-version3
 ```
 
 ## Usage

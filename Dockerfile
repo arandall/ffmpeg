@@ -2,22 +2,69 @@ FROM gliderlabs/alpine:3.3
 MAINTAINER Bruno Celeste <bruno@coconut.co>
 
 ENV FFMPEG_VERSION=4.0.2
+ARG src_dir=/tmp/src
 
-WORKDIR /tmp/ffmpeg
+RUN apk add --update \
+    build-base \
+    bzip2 \
+    coreutils \
+    curl \
+    freetype-dev \
+    lame-dev \
+    libass-dev \
+    libogg-dev \
+    libtheora-dev \
+    libvorbis-dev \
+    libvpx-dev \
+    libwebp-dev \
+    nasm \
+    openssl-dev \
+    opus-dev \
+    rtmpdump-dev \
+    tar \
+    x264-dev \
+    x265-dev \
+    yasm-dev \
+    zlib-dev
 
-RUN apk add --update build-base curl nasm tar bzip2 coreutils \
-  zlib-dev openssl-dev yasm-dev lame-dev libogg-dev x264-dev libvpx-dev libvorbis-dev x265-dev freetype-dev libass-dev libwebp-dev rtmpdump-dev libtheora-dev opus-dev && \
-  DIR=$(mktemp -d) && cd ${DIR} && \
+WORKDIR $src_dir
+RUN curl -s http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz | tar zxvf - -C .
 
-  curl -s http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz | tar zxvf - -C . && \
-  cd ffmpeg-${FFMPEG_VERSION} && \
-  ./configure \
-  --enable-version3 --enable-gpl --enable-nonfree --enable-small --enable-libmp3lame --enable-libx264 --enable-libx265 --enable-libvpx --enable-libtheora --enable-libvorbis --enable-libopus --enable-libass --enable-libwebp --enable-librtmp --enable-postproc --enable-avresample --enable-libfreetype --enable-openssl --disable-debug && \
-  make && \
-  make install && \
-  make distclean && \
+WORKDIR /tmp/src/ffmpeg-${FFMPEG_VERSION}
+RUN ./configure \
+    --disable-debug \
+    --enable-avresample \
+    --enable-gpl \
+    --enable-libass \
+    --enable-libfreetype \
+    --enable-libmp3lame \
+    --enable-libopus \
+    --enable-librtmp \
+    --enable-libtheora \
+    --enable-libvorbis \
+    --enable-libvpx \
+    --enable-libwebp \
+    --enable-libx264 \
+    --enable-libx265 \
+    --enable-nonfree \
+    --enable-openssl \
+    --enable-postproc \
+    --enable-small \
+    --enable-version3
+RUN make
+RUN make install
+RUN make distclean
 
-  rm -rf ${DIR} && \
-  apk del build-base curl tar bzip2 x264 openssl nasm && rm -rf /var/cache/apk/*
+WORKDIR /tmp
+RUN rm -rf ${src_dir}
+RUN apk del \
+    build-base \
+    bzip2 \
+    curl \
+    nasm \
+    openssl \
+    tar \
+    x264
+RUN rm -rf /var/cache/apk/*
 
 ENTRYPOINT ["ffmpeg"]

@@ -54,13 +54,13 @@ ffmpeg version 4.1 Copyright (c) 2000-2018 the FFmpeg developers
 ## Usage
 
 ```
-$ docker run opencoconut/ffmpeg -i http://files.coconut.co.s3.amazonaws.com/test.mp4 -f webm -c:v libvpx -c:a libvorbis - > test.webm
+$ docker run arandall/ffmpeg -i http://files.coconut.co.s3.amazonaws.com/test.mp4 -f webm -c:v libvpx -c:a libvorbis - > test.webm
 ```
 
 To encode a local file, you can mount the current path on the Docker host's filesystem as a volume inside the container like this:
 
 ```
-$ docker run -v=`pwd`:/tmp/ffmpeg opencoconut/ffmpeg -i localfile.mp4 out.webm
+$ docker run -v=`pwd`:/tmp/ffmpeg arandall/ffmpeg -i localfile.mp4 out.webm
 ```
 
 You can create an alias so you use the Docker container like if FFmpeg is installed on your computer:
@@ -68,7 +68,7 @@ You can create an alias so you use the Docker container like if FFmpeg is instal
 In `~/.bashrc`:
 
 ```
-alias ffmpeg='docker run -v=`pwd`:/tmp/ffmpeg opencoconut/ffmpeg'
+alias ffmpeg='docker run -v=`pwd`:/tmp/ffmpeg arandall/ffmpeg'
 ```
 
 Now we can execute FFmpeg with just:

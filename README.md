@@ -1,26 +1,35 @@
-# Minimal FFmpeg Docker image built on Alpine Linux
+# Minimal FFmpeg Docker image with dynamically linked ELF binaries
 
-The image is only **106.7 MB** versus ~350 MB.
+This docker file was originally born out of my need to run the latest FFmpeg version. Over time I have combined other
+work to create an image that is only **64.3MB** and is avaiable via https://hub.docker.com/r/arandall/ffmpeg/
 
-Current FFmpeg version: `4.0.2`
+Inspired by;
+ * Bruno Celeste - https://github.com/opencoconut/ffmpeg
+ * http://blog.oddbit.com/2015/02/05/creating-minimal-docker-images/
+
+The image is 
+
+Current FFmpeg version: `4.1`
 
 ## FFmpeg Build Configuration
 
 ```
-ffmpeg version 3.0 Copyright (c) 2000-2016 the FFmpeg developers
-  built with gcc 5.3.0 (Alpine 5.3.0)
-  configuration: --enable-version3 --enable-gpl --enable-nonfree --enable-small --enable-libmp3lame --enable-libx264 --enable-libx265 --enable-libvpx --enable-libtheora --enable-libvorbis --enable-libopus --enable-libass --enable-libwebp --enable-librtmp --enable-postproc --enable-avresample --enable-libfreetype --enable-openssl --disable-debug
-  libavutil      55. 17.103 / 55. 17.103
-  libavcodec     57. 24.102 / 57. 24.102
-  libavformat    57. 25.100 / 57. 25.100
-  libavdevice    57.  0.101 / 57.  0.101
-  libavfilter     6. 31.100 /  6. 31.100
-  libavresample   3.  0.  0 /  3.  0.  0
-  libswscale      4.  0.100 /  4.  0.100
-  libswresample   2.  0.101 /  2.  0.101
-  libpostproc    54.  0.100 / 54.  0.100
+22:50 $ docker run ffmpeg -buildconf
+ffmpeg version 4.1 Copyright (c) 2000-2018 the FFmpeg developers
+  built with gcc 6.4.0 (Alpine 6.4.0)
+  configuration: --prefix=/fsroot --disable-debug --enable-avresample --enable-gpl --enable-libass --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-librtmp --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-nonfree --enable-libtls --enable-postproc --enable-small --enable-version3
+  libavutil      56. 22.100 / 56. 22.100
+  libavcodec     58. 35.100 / 58. 35.100
+  libavformat    58. 20.100 / 58. 20.100
+  libavdevice    58.  5.100 / 58.  5.100
+  libavfilter     7. 40.101 /  7. 40.101
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  3.100 /  5.  3.100
+  libswresample   3.  3.100 /  3.  3.100
+  libpostproc    55.  3.100 / 55.  3.100
 
   configuration:
+    --prefix=/fsroot
     --disable-debug
     --enable-avresample
     --enable-gpl
@@ -67,21 +76,3 @@ Now we can execute FFmpeg with just:
 ```
 $ ffmpeg -buildconf
 ```
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-
-## Author
-
-**Bruno Celeste**
-
-http://coconut.co
-
-[@OpenCoconut](http://twitter.com/OpenCoconut)
-
-You can contact me directly on Twitter [@brunoceleste](http://twitter.com/brunoceleste)

@@ -1,8 +1,7 @@
-FROM gliderlabs/alpine:3.6
-MAINTAINER Bruno Celeste <bruno@coconut.co>
-
-ENV FFMPEG_VERSION=4.0.2
-ARG src_dir=/tmp/src
+FROM alpine:3.8 AS build
+MAINTAINER "Allan Randall <github@allanrandall.com>"
+ENV FFMPEG_VERSION=4.1
+ENV PREFIX=/fsroot
 
 RUN apk add --update \
     build-base \
@@ -27,11 +26,13 @@ RUN apk add --update \
     yasm-dev \
     zlib-dev
 
-WORKDIR $src_dir
+WORKDIR /tmp/src
 RUN curl -s http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz | tar zxvf - -C .
 
 WORKDIR /tmp/src/ffmpeg-${FFMPEG_VERSION}
+ENV LIBRARY_PATH=/lib:/usr/lib
 RUN ./configure \
+    --prefix=${PREFIX} \
     --disable-debug \
     --enable-avresample \
     --enable-gpl \
@@ -53,17 +54,11 @@ RUN ./configure \
     --enable-version3
 RUN make
 RUN make install
-RUN make distclean
 
-WORKDIR /tmp
-RUN rm -rf ${src_dir}
-RUN apk del \
-    build-base \
-    bzip2 \
-    curl \
-    nasm \
-    tar \
-    x264
-RUN rm -rf /var/cache/apk/*
+RUN ldd ${PREFIX}/bin/ffmpeg | cut -d ' ' -f 3 | strings | xargs -I R cp R /${PREFIX}/lib/
+RUN for lib in $(find /${PREFIX}/lib/* -type f -maxdepth 0); do strip --strip-all $lib; done
+RUN LD_LIBRARY_PATH=${PREFIX}/lib /${PREFIX}/bin/ffmpeg -buildconf
 
-ENTRYPOINT ["ffmpeg"]
+FROM scratch
+COPY --from=build /fsroot /
+ENTRYPOINT ["/bin/ffmpeg"]

@@ -1,6 +1,7 @@
-FROM alpine:3.8 AS build
+FROM alpine:3.9 AS build
 MAINTAINER "Allan Randall <github@allanrandall.com>"
-ENV FFMPEG_VERSION=4.1
+ENV FFMPEG_VERSION=4.1.3
+ENV FFMPEG_SHA256SUM="2f5b24f30e41963ce80f0ab7c78a1b91e86fb3fbb4a7661147c572c587177eee ffmpeg-${FFMPEG_VERSION}.tar.gz"
 ENV PREFIX=/fsroot
 
 RUN apk add --update \
@@ -27,7 +28,10 @@ RUN apk add --update \
     zlib-dev
 
 WORKDIR /tmp/src
-RUN curl -s http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz | tar zxvf - -C .
+RUN curl -sSO https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz && \
+    echo ${FFMPEG_SHA256SUM} | sha256sum --check
+
+RUN tar zxvf ffmpeg-${FFMPEG_VERSION}.tar.gz -C .
 
 WORKDIR /tmp/src/ffmpeg-${FFMPEG_VERSION}
 ENV LIBRARY_PATH=/lib:/usr/lib

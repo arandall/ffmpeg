@@ -1,8 +1,8 @@
 FROM alpine:3.9 AS build
 MAINTAINER "Allan Randall <github@allanrandall.com>"
-ENV FFMPEG_VERSION=4.1.3
-ENV FFMPEG_SHA256SUM="2f5b24f30e41963ce80f0ab7c78a1b91e86fb3fbb4a7661147c572c587177eee ffmpeg-${FFMPEG_VERSION}.tar.gz"
-ENV PREFIX=/fsroot
+ENV FFMPEG_VERSION 4.1.3
+ENV FFMPEG_SHA256SUM "2f5b24f30e41963ce80f0ab7c78a1b91e86fb3fbb4a7661147c572c587177eee ffmpeg-${FFMPEG_VERSION}.tar.gz"
+ENV PREFIX /fsroot
 
 RUN apk add --update \
     build-base \
@@ -56,7 +56,7 @@ RUN ./configure \
     --enable-postproc \
     --enable-small \
     --enable-version3
-RUN make
+RUN make -j $(nproc)
 RUN make install
 
 RUN ldd ${PREFIX}/bin/ffmpeg | cut -d ' ' -f 3 | strings | xargs -I R cp R /${PREFIX}/lib/

@@ -13,18 +13,18 @@ The image is
 
 ```
 $ docker run ffmpeg:latest -buildconf
-ffmpeg version 4.1.4 Copyright (c) 2000-2019 the FFmpeg developers
+ffmpeg version 4.2 Copyright (c) 2000-2019 the FFmpeg developers
   built with gcc 8.3.0 (Alpine 8.3.0)
   configuration: --prefix=/fsroot --disable-debug --enable-avresample --enable-gpl --enable-libass --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-librtmp --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-nonfree --enable-libtls --enable-postproc --enable-small --enable-version3
-  libavutil      56. 22.100 / 56. 22.100
-  libavcodec     58. 35.100 / 58. 35.100
-  libavformat    58. 20.100 / 58. 20.100
-  libavdevice    58.  5.100 / 58.  5.100
-  libavfilter     7. 40.101 /  7. 40.101
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
   libavresample   4.  0.  0 /  4.  0.  0
-  libswscale      5.  3.100 /  5.  3.100
-  libswresample   3.  3.100 /  3.  3.100
-  libpostproc    55.  3.100 / 55.  3.100
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
 
   configuration:
     --prefix=/fsroot

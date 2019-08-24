@@ -1,4 +1,4 @@
-FROM alpine:3.9 AS build
+FROM alpine:3.10 AS build
 MAINTAINER "Allan Randall <github@allanrandall.com>"
 ENV FFMPEG_VERSION 4.2
 ENV FFMPEG_SHA256SUM "9353228c2a397d1c62df7ca16033ec8a0cd2b12296de83a1c74948fe7395bb87 ffmpeg-${FFMPEG_VERSION}.tar.gz"

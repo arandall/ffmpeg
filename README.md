@@ -1,7 +1,7 @@
 # Minimal FFmpeg Docker image with dynamically linked ELF binaries
 
 This docker file was originally born out of my need to run the latest FFmpeg version. Over time I have combined other
-work to create an image that is around **70MB** and is avaiable via https://hub.docker.com/r/arandall/ffmpeg/
+work to create an image that is around **70MB** and is available via https://hub.docker.com/r/arandall/ffmpeg/
 
 Inspired by;
  * Bruno Celeste - https://github.com/opencoconut/ffmpeg
@@ -13,7 +13,7 @@ The image is
 
 ```
 $ docker run ffmpeg:latest -buildconf
-ffmpeg version 4.1.3 Copyright (c) 2000-2019 the FFmpeg developers
+ffmpeg version 4.1.4 Copyright (c) 2000-2019 the FFmpeg developers
   built with gcc 8.3.0 (Alpine 8.3.0)
   configuration: --prefix=/fsroot --disable-debug --enable-avresample --enable-gpl --enable-libass --enable-libfreetype --enable-libmp3lame --enable-libopus --enable-librtmp --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-nonfree --enable-libtls --enable-postproc --enable-small --enable-version3
   libavutil      56. 22.100 / 56. 22.100
